@@ -1,0 +1,196 @@
+/* targets EVERYTHING on the page */
+*, ::before, ::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    /* sets the default font size to 10px instead of the browser's default of 16px
+    this will make it easier to work with rem units later, as 2rem would be 20px */
+}
+
+body {
+    font-family: Baskervville, serif;
+    color: linen;
+    background-color: rgb(20, 30, 40);
+}
+
+h1 {
+    font-family: Anton, sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: Raleway, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: linen;
+}
+
+/* main is the parent element of the grid */
+main {
+    display: grid; /* similar to Flexbox in that it has a special property for both the parent and child elements */
+    grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr); 
+    /* grid-template-colums creates 3 columns with the three values */
+    /* minmax function makes columns responsive; the first  argument is the minimum value and the second is the maximum value (length, %, fr, even a keyword like max-content */
+    row-gap: 3rem;
+}
+
+/* this is a child element of the grid */
+.heading {
+    grid-column: 2 / 3; /* tells .heading to start at grid line 2 and end at grid line 3 */
+    display: grid; /* creates a grid WITHIN a grid! */
+    grid-template-columns: repeat(2, 1fr); /* repeats something? 2 times at size of 1 fraction */
+    row-gap: 1.5rem;
+
+}
+
+.text {
+    grid-column: 2/3;
+    font-size: 1.8rem;
+    letter-spacing: 0.6px;
+    column-width: 25rem; /* creates columns without using CSS Grid */
+    text-align: justify; /* not recommended for websites because of accessibility concerns */
+}
+
+.hero {
+    grid-column: 1/-1; /* starts at 1 and ends at the LAST column */
+    position: relative;
+}
+
+img {
+    width: 100%;
+    object-fit: cover; /* tells the browser thow to position the element within its container; 
+    cover will fill the container, croppping as needed to avoid changing the aspect ratio */
+}
+
+.hero-title {
+    text-align: center;
+    color: orangered;
+    font-size: 8rem;
+}
+
+.hero-subtitle{
+    font-size: 2.4rem;
+    color: orangered;
+    text-align: center;
+}
+
+.author {
+    font-size: 2rem;
+    font-family: Raleway, sans-serif;
+}
+
+.author-name a:hover {
+    background-color: #306203;
+
+}
+
+.publish-date {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.social-icons {
+    display: grid;
+    font-size: 3rem;
+    grid-template-columns: repeat(5, 1fr); /* to add more icons, make this repeat more times; or just use grid-auto-flow property
+    which takes either row or column as the first value, with an optional second value of dense. */
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr; /* prevents new column width from defaulting to auto */
+    align-items: center;
+}
+
+.first-paragraph::first-letter {
+    font-size: 6rem;
+    color: orangered;
+    float: left; /* this + margin right prevents displacing the rest of the text */
+    margin-right: 1rem;
+}
+
+hr {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(120, 120, 120, 00.6);
+}
+
+.quote {
+    color: #00beef;
+    font-size: 2.4rem;
+    font-family: Raleway, sans-serif;
+    text-align: center;
+}
+
+.quote::before {
+    content: '" ' ; /* adds a quote mark before the text */
+}
+
+.quote::after {
+    content: ' "';
+}
+
+.text-with-images {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.lists{
+    list-style-type: none; /* gets rid of the bullets */
+    margin-top: 2rem;
+}
+
+.lists li {
+    margin-bottom: 1.5rem;
+}
+
+.list-title, .list-subtitle {
+    color: #00beef;
+}
+
+.image-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(3, min-content);/* gives rows that adjust in height based on content, but columns that remain a fixed width based on the container */ 
+    gap: 2rem; /* shorthand for row-gap and column-gap, in that order. If only one number, both get that number. */
+    place-items: center; /* allows setting of align-items and justify-items in one property */
+}
+
+.image-1, .image-3 {
+    grid-column: 1/-1;
+}
+
+@media only screen and (max-width: 720px) {
+    .image-wrapper{
+        grid-template-columns: 1fr; /* collapses images into one column on smaller screens */
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .text-with-images {
+        grid-template-columns: 1fr;;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .hero-title {
+        font-size: 6rem;
+    }
+    .hero-subtitle, .author, .quote, .list-title {
+        font-size: 1.8rem;
+    }
+    .social-icons {
+        font-size: 2rem;
+    }
+    .text {
+        font-size: 1.6rem;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+}
