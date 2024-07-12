@@ -1,0 +1,123 @@
+body {
+    background: linear-gradient(45deg, rgb(118, 201, 255), rgb(247, 255, 222)); /* very cool background */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    /* margin, padding, width, and height are "normalizing" the page */
+    overflow: hidden; /* hides the scrollbars */
+}
+
+
+.left-mountain {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(rgb(203, 241, 228), rgb(80, 183, 255));
+    position: absolute; /* prevents from pushing other things around */
+    transform: skew(0deg, 44deg); /* skewing the mountain */
+    z-index: 2; /* to keep it behind the .ground element */
+    margin-top: 100px; /* somehow moves it down and overlaps it over the .ground element better */
+}
+
+.back-mountain {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(rgb(203, 241, 228), rgb(47, 170, 255));
+    position: absolute; /* prevents it from taking up space in the page layout */
+    z-index: 1; /* puts it all the way in the back, behing the .left-mountain element */
+    rotate: 45deg;
+    left: 110px;
+    top: 225px;
+}
+
+.sun {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    position: absolute; /* doesn't take up space in the page layout */
+    border-radius: 50%; /* makes it a circle */
+    right: -75px; /* moves it right to the point that 75px are offscreen */
+    top:  -75px; /* moves it up so that 75px are offscreen */
+}
+
+.penguin {
+    width: 300px;
+    height: 300px;
+    margin: auto; /* horizontally centers the .penguin element */
+    margin-top: 75px;
+    z-index: 4; /* will stack in front of the .ground element */
+    position: relative;
+}
+
+.penguin * { /* targets all descendant element of the .penguin element */
+    position: absolute;
+}
+
+.penguin-head {
+    width: 50%; /* that's 50% of the parent element, .penguin */
+    height:45%;
+    background: linear-gradient(45deg, gray, rgb(239, 240, 228));
+    border-top-left-radius: 70%;
+    border-top-right-radius: 70%;
+    border-bottom-left-radius: 65%;
+    border-bottom-right-radius: 65%; /* should have used "border-radius: 70% 70% 65% 65%;" */
+    top: 10%; /* positions this element 10% down from its parent (.penguin)*/
+    left: 25%; /* positions this element 25% right of its parent (.penguin) */
+    z-index: 1; /* will be in front of the .penguin-body element */;
+}
+
+.face {
+    width: 60%;
+    height: 70%;
+    background-color: white;
+    border-radius: 70% 70% 60% 60%; 
+    top: 15%;
+}
+
+.face.left {
+    left: 5%;
+}
+
+.face.right {
+    right: 5%;
+}
+
+.chin {
+    width: 90%;
+    height: 70%;
+    background-color: white;
+    top: 25%;
+    left: 5%;
+    border-radius: 70% 70% 100% 100%;
+}
+
+.penguin-body {
+    width: 53%;
+    height: 45%;
+    background: linear-gradient(45deg, rgb(134, 133, 133) 0%, rgb(234, 231, 231) 25%, white 67%);
+    border-radius: 80% 80% 100% 100%;
+    top: 40%; /* moves the body 40% down from its parent (.penguin) */
+    left: 23.5%;
+}
+
+.penguin-body::before { /* creates a pseudo element that is the first child of .penguin-body */
+    position: absolute; /* NOT ABSOLUTE; relative to its closest positioned ancestor */
+    content: '';
+    width: 50%; /* that's 50% of the parent */
+    height: 45%; /* that's 45% of the parent */
+    background-color: gray;
+    top: 10%;
+    left: 25%;
+    border-radius: 0% 0% 100% 100%;
+    opacity: 70%; /* transparency of 30% */
+}
+
+.ground {
+    width: 100vw;
+    height: 400px;
+    background: linear-gradient(90deg, rgb(88, 175, 236), rgb(182, 255, 255));
+    z-index: 3; /* will be third in the stacking context of the page layout */
+    position: absolute;
+    margin-top: -58px; /* moved the ground UP, supposed to help with overlapping this and .mountain elements */
+}
+
